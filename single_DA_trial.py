@@ -53,7 +53,7 @@ def main():
     MUp_low,MUp_high = -1.0,1.0 # prior MU parameter range to be uniformly sampled from 
     Sp_low,Sp_high = 0.05,2.0 # prior Sigma parameter range to be uniformly sampled from
     exp_name = 'loglogitPrior_logOb' # select loglogitPrior_logOb, loglogitPrior_biasedOb,loglogitPrior_adaptiveOb
-    outdir_results = '/glade/derecho/scratch/hristoc/statistical_experiments/y_variations' # where filtering results are written
+    outdir_results = '{}/output'.format(current_dir) # where filtering results are written
     outdir_figures = '{}/figures'.format(current_dir) # where figures go
     do_plotting = 1
 
@@ -267,52 +267,6 @@ def main():
                                  Xf,Ne,xt,y,EX1u,EX2u,PDFp,likelihood,PDFu_explicit,\
                                  x1_arr,x2_arr,edges_x1,edges_x2,'EnKF',RHOp,R[0][0],\
                                  outdir_figures,seed_num,PDFu_x1,PDFu_x2)
-
-
-    ########## EnKF (explicit R calculation) ##########
-#    Xa_EnKF_R = EnKF_scalarOb_explicitR(Xf,Y,y,H,Ne)
-#    Xa_density2d_tmp,xedges,yedges = \
-#            np.histogram2d(Xa_EnKF_R[0,:],Xa_EnKF_R[1,:],\
-#            bins=(edges_x1,edges_x2),density=True)
-#    Xa_density2d_EnKF_R = Xa_density2d_tmp.T
-#    Xa_JSdiv_EnKF_R = jensen_shannon_divergence(Xa_density2d_EnKF_R,PDFu_explicit)
-#    Xa_me_EX_EnKF_R,Xa_me_stdX_EnKF_R,Xa_me_xt_EnKF_R = mean_errors(Xa_EnKF_R,EXu,VarXu,xt)
-#    Xa_num_outside_EnKF_R = num_mems_outside_bounds(Xa_EnKF_R,exp_name)
-#    Xa_perc_outside_EnKF_R = 100.0*Xa_num_outside_EnKF_R/Ne
-#    Xa_spread_EnKF_R,Xa_rmse_EnKF_R,Xa_ratio_EnKF_R = spread_rmse_ratio(Xa_EnKF_R,xt)
-#    Xa_KLdiv_EnKF_R = kullback_leibler_divergence(Xa_density2d_EnKF_R,PDFu_explicit)
-#    print('\n* EnKF (explicit R)')
-#    print('JS divergence = ',Xa_JSdiv_EnKF_R)
-#    print('ME wrt posterior expectation = ',Xa_me_EX_EnKF_R)
-#    print('ME wrt posterior std = ',Xa_me_stdX_EnKF_R)
-#    print('Percent analysis members outside of bounds = ',Xa_perc_outside_EnKF_R)
-#    print('ME wrt truth = ', Xa_me_xt_EnKF_R)
-#    print('Spread = ', Xa_spread_EnKF_R)
-#    print('RMSE = ', Xa_rmse_EnKF_R)
-#    print('Consistency ratio = ', Xa_ratio_EnKF_R)
-#    print('KL divergence = ', Xa_KLdiv_EnKF_R)
-#
-#    # write results to file
-#    output_EnKF_R_tmp = [seed_num,RHOp,R[0][0],y,Xf_mean_x1,Xf_mean_x2,\
-#                         Xa_JSdiv_EnKF_R,Xa_me_EX_EnKF_R,Xa_me_stdX_EnKF_R,Xa_perc_outside_EnKF_R,\
-#                         MUp_x1,MUp_x2,Sp_x1,Sp_x2,MUu_x1,MUu_x2,Su_x1,Su_x2,\
-#                         PDFp_int2,PDFu_theory_int2,PDFu_explicit_int2,maxDiff_PDFu]
-#    output_EnKF_R = format_output(output_EnKF_R_tmp)
-#    fileout_EnKF_R = '{}/EnKF_R_RHOp={}_R={}_y={:.1f}.txt'.\
-#                      format(outdir_results,RHOp,R[0][0],y)
-#    mode = 'w' if not os.path.exists(fileout_EnKF_R) else 'a'
-#    print('Writing output ...')
-#    with open(fileout_EnKF_R,mode) as ifile:
-#        ifile.write(' '.join(output_EnKF_R)+'\n')
-#
-#    # optionally plot
-#    if do_plotting == 1:
-#        print('Plotting results ...')
-#        plot_multivariate_update(Xa_EnKF_R,Xa_density2d_EnKF_R,Xa_JSdiv_EnKF_R,Xa_me_EX_EnKF_R,\
-#                                 Xa_me_stdX_EnKF_R,Xa_num_outside_EnKF_R,\
-#                                 Xf,Ne,xt,y,EX1u,EX2u,PDFp,likelihood,PDFu_explicit,\
-#                                 x1_arr,x2_arr,edges_x1,edges_x2,'EnKF_R',RHOp,R[0][0],\
-#                                 outdir_figures,seed_num,PDFu_x1,PDFu_x2)
 
 
     ########## QCEF ##########
